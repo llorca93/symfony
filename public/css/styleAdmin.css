@@ -1,0 +1,53 @@
+/* *******************RESET************************/
+
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  list-style-type: none;
+}
+
+/************************** GLOBAL ***********************/
+
+:root {
+  --color-white: #fff;
+  --color-light-grey: #888;
+}
+* {
+  font-weight: lighter;
+}
+
+/************************ NAV ****************************/
+
+nav {
+  height: calc(100vh - 78px - 46px);
+}
+  nav a {
+    color: var(--color-white);
+  }
+
+    nav a:hover {
+      color: var(--color-light-grey);
+    }
+
+    nav a li {
+      margin: 1em 0;
+      width: 100%;
+      text-align: center;
+    }
+
+
+/************************FOOTER**********************/
+
+footer {
+  position: fixed;
+  bottom: 0;
+  padding: 0.5em;
+  font-size: 0.75em;
+}
+
+/******************** TABLE **************************/
+
+table img {
+  width: 100px;
+}

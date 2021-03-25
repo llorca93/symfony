@@ -1,2 +1,10 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
+    globals:
+        copyright: 'Copyright  © 2021 - Pierre llorca'
+        contact_address: '62 rue du village'
+        contact_zip: 12345
+        contact_city: 'Ville'
+        contact_phone: '01.23.45.67.88'
+        contact_email: 'prenom.nom@domaine.com'
+    form_themes: ['bootstrap_4_horizontal_layout.html.twig']
