@@ -1,0 +1,6 @@
+# See https://symfony.com/doc/current/email/dev_environment.html
+swiftmailer:
+    url:
+    # send all emails to a specific address
+    delivery_addresses: ['prenom.nom@domaine.com']
+    disable_delivery: true

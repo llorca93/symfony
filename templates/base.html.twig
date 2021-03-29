@@ -31,7 +31,7 @@
                     <div class="dropdown-divider"></div>
                     <p><a href="{{ path('home') }}">Accueil</a></p>
                     <p><a href="#">Maisons</a></p>
-                    <p><a href="#">Contact</a></p>
+                    <p><a href="{{ path('contact') }}">Contact</a></p>
                     <p><a href="{{ path('admin') }}">Admin</a></p>
                 </div>
                 <div class="col-4 my-auto">
@@ -59,6 +59,13 @@
         "></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js
         "></script>
+        <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
+        <script>
+            $(document).ready(function(){
+                bsCustomFileInput.init()
+            })
+        </script>
+
 
         {% block javascript %}{% endblock %}
     </body>
