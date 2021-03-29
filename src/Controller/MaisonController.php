@@ -59,9 +59,10 @@ class MaisonController extends AbstractController
                 $manager = $this->getDoctrine()->getManager(); // recupere le manager de doctrine
                 $manager->persist($maison); // dit a doctrine qu'on va vouloir sauvegarder en bdd
                 $manager->flush(); // execute la requete
+                $this->addFlash('success','La maison a bien été ajoutée');
                 
             } else {
-
+                $this->addFlash('danger', 'Une erreur est survenue lors de l\'ajout de la maison');
             }
         }
 
@@ -81,6 +82,61 @@ class MaisonController extends AbstractController
         $form = $this->createForm(MaisonType::class, $maison);
         $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) { // verifie si le formulaire a été soumis
+
+            $infoImg1 = $form['img1']->getData();
+            $nomOldImg1 = $maison->getImg1();
+            if ($infoImg1 !== null) {
+                
+                $cheminImg1 = $this->getParameter('dossier_photos_maisons') . '/' . $nomOldImg1;
+                
+                if (file_exists($cheminImg1)) {
+                    unlink($cheminImg1);
+                }
+                $extensionImg1 = $infoImg1->guessExtension(); // recupere l'extension de l'image
+                $nomImg1 = time() . '-1.' . $extensionImg1; // cree un nom unique pour l'image
+                $infoImg1->move($this->getParameter('dossier_photos_maisons'), $nomImg1); // deplacer l'image dans le dossier adequat
+                $maison->setImg1($nomImg1); // definit le nom de l'image a mettre en bdd
+            } else {
+                $maison->setImg1($nomOldImg1);
+                
+
+            }
+
+            $infoImg2 = $form['img2']->getData();
+            $nomOldImg2 = $maison->getImg2();
+            if ($infoImg2 !== null) {
+                if ($nomOldImg2 !== null) {
+                    $cheminOldimg2 = $this->getParameter('dossier_photos_maisons') . '/' . $nomOldImg2;
+                   if (file_exists($cheminOldimg2)) {
+                       unlink($cheminOldimg2);
+                   }
+                }
+                $extensionImg2 = $infoImg2->guessExtension(); // recupere l'extension de l'image
+                $nomImg2 = time() . '-2.' . $extensionImg2; // cree un nom unique pour l'image
+                $infoImg2->move($this->getParameter('dossier_photos_maisons'), $nomImg2); // deplacer l'image dans le dossier adequat
+                $maison->setImg2($nomImg2); // definit le nom de l'image a mettre en bdd
+
+                
+            } else {
+                $maison->setImg2($nomOldImg2);
+            }
+
+            
+
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($maison);
+            $manager->flush();
+            $this->addFlash('success','La maison a bien été modifiée');
+            return $this->redirectToRoute('admin_maison');
+        
+        
+        
+        
+        
+
+        }
+
         return $this->render('admin/maisonForm.html.twig', [
             'maisonForm' => $form->createView(),
         ]);
@@ -96,7 +152,7 @@ class MaisonController extends AbstractController
 
         $nomImg1 = $maison->getImg1();
         if ($nomImg1 !== null) {
-            $cheminImg1 = $this->getParameter('dossier_photos_maisons') . $nomImg1;
+            $cheminImg1 = $this->getParameter('dossier_photos_maisons') . '/' . $nomImg1;
             if (file_exists($cheminImg1)) {
             unlink($cheminImg1);
             }
@@ -119,6 +175,7 @@ class MaisonController extends AbstractController
         $manager = $this->getDoctrine()->getManager();
         $manager->remove($maison);
         $manager->flush();
+        $this->addFlash('success','La maison a bien été supprimée');
 
         return $this->redirectToRoute('admin_maison');
      }

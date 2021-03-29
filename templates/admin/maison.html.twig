@@ -33,7 +33,7 @@
                             <td class="align-middle">{{ maison.price|number_format(0, ',', ' ') }}</td>
                             <td class="align-middle"><img src="{{ asset('img/maison/') ~ maison.img1 }}" alt="photo principale maison"></td>
                             <td class="align-middle">
-                                <a href="#"><i class="fas fa-pen-square"></i></a>
+                                <a href="{{ path('admin_maison_update', {'id':maison.id}) }}"><i class="fas fa-pen-square"></i></a>
                                 <a href="{{ path('admin_maison_delete', {'id':maison.id}) }}"><i class="fas fa-trash-alt"></i></a>
                             </td>
                         </tr>
